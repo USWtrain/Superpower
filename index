@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Superpower Health | Training Index</title>
+<style>
+  :root {
+    --sp-midnight: #0D0F14;
+    --sp-deep:     #111621;
+    --sp-card:     #181D27;
+    --sp-border:   #252C3A;
+    --sp-accent:   #5B8EFF;
+    --sp-glow:     #3D63D8;
+    --sp-amber:    #F59E0B;
+    --sp-red:      #EF4444;
+    --sp-green:    #22C55E;
+    --sp-text:     #E4E9F5;
+    --sp-muted:    #8A96B2;
+    --sp-white:    #FFFFFF;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--sp-midnight);
+    color: var(--sp-text);
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.65;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--sp-deep); }
+  ::-webkit-scrollbar-thumb { background: var(--sp-border); border-radius: 3px; }
+
+  /* ── HEADER ── */
+  .idx-header {
+    background: var(--sp-deep);
+    border-bottom: 1px solid var(--sp-border);
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .idx-header img { height: 36px; }
+  .idx-header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+  .idx-header-right span { font-size: 0.7rem; color: var(--sp-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+  .idx-header-right strong { font-size: 0.82rem; color: var(--sp-accent); }
+
+  /* ── HERO ── */
+  .idx-hero {
+    text-align: center;
+    padding: 64px 40px 52px;
+    background: linear-gradient(180deg, #0A0E1A 0%, var(--sp-midnight) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .idx-hero::before {
+    content: '';
+    position: absolute;
+    top: -120px; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 400px;
+    background: radial-gradient(ellipse, rgba(91,142,255,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .idx-logo-wrap { margin-bottom: 28px; }
+  .idx-logo-wrap img { height: 48px; display: inline-block; }
+
+  .idx-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(91,142,255,0.1);
+    border: 1px solid rgba(91,142,255,0.22);
+    border-radius: 100px;
+    padding: 4px 14px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sp-accent);
+    margin-bottom: 20px;
+  }
+  .idx-hero h1 {
+    font-size: clamp(1.9rem, 4vw, 3rem);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    color: var(--sp-white);
+    line-height: 1.08;
+    margin-bottom: 14px;
+  }
+  .idx-hero h1 .grad {
+    background: linear-gradient(135deg, var(--sp-accent) 0%, #8BB8FF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .idx-hero p {
+    font-size: 1rem;
+    color: var(--sp-muted);
+    max-width: 500px;
+    margin: 0 auto 36px;
+    line-height: 1.65;
+  }
+  .idx-start-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--sp-accent);
+    color: var(--sp-white);
+    font-weight: 700;
+    font-size: 0.88rem;
+    border: none;
+    border-radius: 10px;
+    padding: 13px 28px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+  }
+  .idx-start-btn:hover { background: var(--sp-glow); transform: translateY(-2px); }
+
+  .idx-pills {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 28px;
+  }
+  .idx-pill {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--sp-border);
+    border-radius: 100px;
+    padding: 5px 14px;
+    font-size: 0.72rem;
+    color: var(--sp-muted);
+    font-weight: 600;
+  }
+
+  /* ── MODULE CARDS ── */
+  .idx-modules {
+    padding: 0 40px 56px;
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .idx-modules-label {
+    text-align: center;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--sp-muted);
+    margin-bottom: 24px;
+    padding-top: 48px;
+    border-top: 1px solid var(--sp-border);
+  }
+  .idx-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .idx-card {
+    background: var(--sp-card);
+    border: 1px solid var(--sp-border);
+    border-radius: 14px;
+    padding: 24px;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: border-color 0.2s, transform 0.18s, box-shadow 0.18s;
+    position: relative;
+    overflow: hidden;
+  }
+  .idx-card::after {
+    content: '→';
+    position: absolute;
+    top: 22px; right: 22px;
+    font-size: 1rem;
+    color: var(--sp-border);
+    transition: color 0.2s, transform 0.2s;
+  }
+  .idx-card:hover {
+    border-color: var(--sp-accent);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(91,142,255,0.1);
+  }
+  .idx-card:hover::after { color: var(--sp-accent); transform: translateX(3px); }
+
+  .idx-card-icon {
+    width: 44px; height: 44px;
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+  .idx-card h3 {
+    font-size: 0.96rem;
+    font-weight: 700;
+    color: var(--sp-white);
+    letter-spacing: -0.01em;
+    padding-right: 24px;
+  }
+  .idx-card p {
+    font-size: 0.78rem;
+    color: var(--sp-muted);
+    line-height: 1.55;
+  }
+  .idx-tag {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(91,142,255,0.08);
+    border: 1px solid rgba(91,142,255,0.15);
+    border-radius: 100px;
+    padding: 2px 10px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--sp-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    width: fit-content;
+  }
+  .idx-tag.warn  { background: rgba(245,158,11,0.08); border-color: rgba(245,158,11,0.2); color: var(--sp-amber); }
+  .idx-tag.red   { background: rgba(239,68,68,0.08);  border-color: rgba(239,68,68,0.2);  color: var(--sp-red); }
+  .idx-tag.green { background: rgba(34,197,94,0.08);  border-color: rgba(34,197,94,0.2);  color: var(--sp-green); }
+  .idx-tag.gold  { background: rgba(234,179,8,0.08);  border-color: rgba(234,179,8,0.2);  color: #EAB308; }
+
+  /* ── FOOTER ── */
+  .idx-footer {
+    background: var(--sp-deep);
+    border-top: 1px solid var(--sp-border);
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: auto;
+  }
+  .idx-footer p { font-size: 0.72rem; color: var(--sp-muted); }
+  .idx-footer img { height: 18px; opacity: 0.5; }
+
+  @media (max-width: 700px) {
+    .idx-header { padding: 16px 20px; }
+    .idx-hero { padding: 40px 20px 36px; }
+    .idx-modules { padding: 0 20px 40px; }
+    .idx-footer { padding: 16px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="idx-header">
+  <img src="https://uswtrain.github.io/GenRapid/US_Wellness_Logo.png" alt="US Wellness" onerror="this.style.display='none'">
+  <div class="idx-header-right">
+    <span>Training Materials</span>
+    <strong>Superpower Health Events</strong>
+  </div>
+</header>
+
+<div class="idx-hero">
+  <div class="idx-logo-wrap">
+    <img src="https://uswtrain.github.io/GenRapid/US_Wellness_Logo.png" alt="US Wellness" onerror="this.style.display='none'">
+  </div>
+  <div class="idx-eyebrow">⚡ Screener Training Manual</div>
+  <h1>Superpower Health<br><span class="grad">Event Training</span></h1>
+  <p>Everything you need to run a Superpower Health biomarker draw event — specimen collection, privacy requirements, emergency protocols, and more.</p>
+  <a class="idx-start-btn" href="superpower-training.html">Open Training Manual &nbsp;→</a>
+  <div class="idx-pills">
+    <span class="idx-pill">5 SST + 1 Lavender</span>
+    <span class="idx-pill">Quest Diagnostics</span>
+    <span class="idx-pill">22 Ordered Tests</span>
+    <span class="idx-pill">4-Hour Transport Window</span>
+  </div>
+</div>
+
+<div class="idx-modules">
+  <div class="idx-modules-label">Training Modules — click any card to jump directly to that section</div>
+  <div class="idx-grid">
+
+    <a class="idx-card" href="superpower-training.html#about">
+      <div class="idx-card-icon" style="background:rgba(91,142,255,0.1);">⚡</div>
+      <div class="idx-tag">Overview</div>
+      <h3>What is Superpower Health?</h3>
+      <p>Understand the client, their platform, and what your draw powers for each member.</p>
+    </a>
+
+    <a class="idx-card" href="superpower-training.html#quickref">
+      <div class="idx-card-icon" style="background:rgba(91,142,255,0.1);">📋</div>
+      <div class="idx-tag">Reference</div>
+      <h3>Quick Reference</h3>
+      <p>At-a-glance cards for tubes, centrifuge settings, inversions, labeling, and key rules.</p>
+    </a>
+
+    <a class="idx-card" href="superpower-training.html#tests">
+      <div class="idx-card-icon" style="background:rgba(234,179,8,0.1);">🧪</div>
+      <div class="idx-tag gold">22 Tests</div>
+      <h3>Tests to Be Performed</h3>
+      <p>Full ordered panel with tube assignments — 20 SST tests and 2 lavender tests.</p>
+    </a>
+
+    <a class="idx-card" href="superpower-training.html#collection">
+      <div class="idx-card-icon" style="background:rgba(239,68,68,0.1);">🩸</div>
+      <div class="idx-tag warn">Time-Critical</div>
+      <h3>Specimen Collection SOP</h3>
+      <p>8-step procedure from venipuncture through cooler storage and Quest delivery.</p>
+    </a>
+
+    <a class="idx-card" href="superpower-training.html#critical">
+      <div class="idx-card-icon" style="background:rgba(239,68,68,0.1);">⚠️</div>
+      <div class="idx-tag red">Required</div>
+      <h3>Critical Rules at a Glance</h3>
+      <p>Non-negotiable standards: gloves, PHI handling, and sharps disposal.</p>
+    </a>
+
+    <a class="idx-card" href="superpower-training.html#salesforce">
+      <div class="idx-card-icon" style="background:rgba(91,142,255,0.1);">💻</div>
+      <div class="idx-tag">Operations</div>
+      <h3>Salesforce Data Entry</h3>
+      <p>Required fields, same-day entry rules, and common errors to avoid.</p>
+    </a>
+
+    <a class="idx-card" href="superpower-training.html#hardware">
+      <div class="idx-card-icon" style="background:rgba(91,142,255,0.1);">🖥️</div>
+      <div class="idx-tag">Policy</div>
+      <h3>Hardware &amp; Software Policy</h3>
+      <p>Approved devices, login rules, connectivity, and printing requirements.</p>
+    </a>
+
+    <a class="idx-card" href="superpower-training.html#hipaa">
+      <div class="idx-card-icon" style="background:rgba(239,68,68,0.1);">🔒</div>
+      <div class="idx-tag red">HIPAA</div>
+      <h3>HIPAA &amp; Privacy</h3>
+      <p>PHI rules, what you must never do, consent requirements, and your responsibilities.</p>
+    </a>
+
+    <a class="idx-card" href="superpower-training.html#emergency">
+      <div class="idx-card-icon" style="background:rgba(239,68,68,0.1);">🚨</div>
+      <div class="idx-tag red">Emergency</div>
+      <h3>Medical Emergency Protocol</h3>
+      <p>Vasovagal, hematoma, anaphylaxis — 6-step response and emergency contacts.</p>
+    </a>
+
+  </div>
+</div>
+
+<footer class="idx-footer">
+  <p>US Wellness · Superpower Health Events · For internal use only · Not for distribution</p>
+  <img src="https://uswtrain.github.io/GenRapid/US_Wellness_Logo.png" alt="US Wellness" onerror="this.style.display='none'">
+</footer>
+
+</body>
+</html>
