@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Superpower Health | Screener Training Manual</title>
+<style>
+  :root {
+    --sp-midnight: #0D0F14;
+    --sp-deep:     #111621;
+    --sp-card:     #181D27;
+    --sp-border:   #252C3A;
+    --sp-accent:   #5B8EFF;
+    --sp-glow:     #3D63D8;
+    --sp-green:    #22C55E;
+    --sp-amber:    #F59E0B;
+    --sp-red:      #EF4444;
+    --sp-text:     #E4E9F5;
+    --sp-muted:    #8A96B2;
+    --sp-white:    #FFFFFF;
+    --sp-gold:     #C9A94B;
+    font-size: 16px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--sp-midnight);
+    color: var(--sp-text);
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.65;
+    min-height: 100vh;
+  }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--sp-deep); }
+  ::-webkit-scrollbar-thumb { background: var(--sp-border); border-radius: 3px; }
+
+  /* ── INDEX PAGE ── */
+  #index-page { min-height: 100vh; background: var(--sp-midnight); display: flex; flex-direction: column; }
+  #manual-page { display: none; }
+
+  .idx-header { background: var(--sp-deep); border-bottom: 1px solid var(--sp-border); padding: 20px 40px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  .idx-header img { height: 36px; }
+  .idx-header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+  .idx-header-right span { font-size: 0.7rem; color: var(--sp-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+  .idx-header-right strong { font-size: 0.82rem; color: var(--sp-accent); }
+
+  .idx-hero { text-align: center; padding: 64px 40px 52px; background: linear-gradient(180deg, #0A0E1A 0%, var(--sp-midnight) 100%); position: relative; overflow: hidden; }
+  .idx-hero::before { content: ''; position: absolute; top: -120px; left: 50%; transform: translateX(-50%); width: 600px; height: 400px; background: radial-gradient(ellipse, rgba(91,142,255,0.1) 0%, transparent 70%); pointer-events: none; }
+  .idx-logo-wrap { margin-bottom: 28px; }
+  .idx-logo-wrap img { height: 48px; display: inline-block; }
+
+  .idx-eyebrow { display: inline-flex; align-items: center; gap: 6px; background: rgba(91,142,255,0.1); border: 1px solid rgba(91,142,255,0.22); border-radius: 100px; padding: 4px 14px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sp-accent); margin-bottom: 20px; }
+  .idx-hero h1 { font-size: clamp(1.9rem, 4vw, 3rem); font-weight: 900; letter-spacing: -0.04em; color: var(--sp-white); line-height: 1.08; margin-bottom: 14px; }
+  .idx-hero h1 .grad { background: linear-gradient(135deg, var(--sp-accent) 0%, #8BB8FF 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .idx-hero p { font-size: 1rem; color: var(--sp-muted); max-width: 500px; margin: 0 auto 36px; line-height: 1.65; }
+
+  .idx-start-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--sp-accent); color: var(--sp-white); font-weight: 700; font-size: 0.88rem; border: none; border-radius: 10px; padding: 13px 28px; cursor: pointer; transition: background 0.2s, transform 0.15s; letter-spacing: 0.01em; }
+  .idx-start-btn:hover { background: var(--sp-glow); transform: translateY(-2px); }
+
+  .idx-pills { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 28px; }
+  .idx-pill { background: rgba(255,255,255,0.04); border: 1px solid var(--sp-border); border-radius: 100px; padding: 5px 14px; font-size: 0.72rem; color: var(--sp-muted); font-weight: 600; }
+
+  .idx-modules { padding: 0 40px 56px; max-width: 1100px; margin: 0 auto; width: 100%; }
+  .idx-modules-label { text-align: center; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--sp-muted); margin-bottom: 24px; padding-top: 48px; border-top: 1px solid var(--sp-border); }
+
+  .idx-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+  .idx-card { background: var(--sp-card); border: 1px solid var(--sp-border); border-radius: 14px; padding: 24px; cursor: pointer; text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 10px; transition: border-color 0.2s, transform 0.18s, box-shadow 0.18s; position: relative; overflow: hidden; }
+  .idx-card::after { content: '→'; position: absolute; top: 22px; right: 22px; font-size: 1rem; color: var(--sp-border); transition: color 0.2s, transform 0.2s; }
+  .idx-card:hover { border-color: var(--sp-accent); transform: translateY(-3px); box-shadow: 0 8px 32px rgba(91,142,255,0.1); }
+  .idx-card:hover::after { color: var(--sp-accent); transform: translateX(3px); }
+  .idx-card-icon { width: 44px; height: 44px; border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+  .idx-card h3 { font-size: 0.96rem; font-weight: 700; color: var(--sp-white); letter-spacing: -0.01em; padding-right: 24px; }
+  .idx-card p { font-size: 0.78rem; color: var(--sp-muted); line-height: 1.55; }
+
+  .idx-tag { display: inline-flex; align-items: center; background: rgba(91,142,255,0.08); border: 1px solid rgba(91,142,255,0.15); border-radius: 100px; padding: 2px 10px; font-size: 0.65rem; font-weight: 700; color: var(--sp-accent); text-transform: uppercase; letter-spacing: 0.08em; width: fit-content; }
+  .idx-tag.warn { background: rgba(245,158,11,0.08); border-color: rgba(245,158,11,0.2); color: var(--sp-amber); }
+  .idx-tag.red  { background: rgba(239,68,68,0.08);  border-color: rgba(239,68,68,0.2);  color: var(--sp-red); }
+  .idx-tag.green{ background: rgba(34,197,94,0.08);  border-color: rgba(34,197,94,0.2);  color: var(--sp-green); }
+  .idx-tag.gold { background: rgba(234,179,8,0.08);  border-color: rgba(234,179,8,0.2);  color: #EAB308; }
+
+  .idx-footer { background: var(--sp-deep); border-top: 1px solid var(--sp-border); padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: auto; }
+  .idx-footer p { font-size: 0.72rem; color: var(--sp-muted); }
+  .idx-footer img { height: 18px; opacity: 0.5; }
+
+  /* ── MANUAL PAGE ── */
+  .sidebar { position: fixed; top: 0; left: 0; width: 240px; height: 100vh; background: var(--sp-deep); border-right: 1px solid var(--sp-border); overflow-y: auto; z-index: 100; display: flex; flex-direction: column; }
+  .sidebar-logo { padding: 20px 20px 16px; border-bottom: 1px solid var(--sp-border); }
+  .sidebar-logo img { width: 100%; max-width: 160px; display: block; }
+  .sidebar-badge { margin-top: 10px; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--sp-accent); font-weight: 700; }
+  .sidebar-back { padding: 12px 20px; border-bottom: 1px solid var(--sp-border); }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; background: rgba(91,142,255,0.1); border: 1px solid rgba(91,142,255,0.2); color: var(--sp-accent); font-size: 0.75rem; font-weight: 700; border-radius: 8px; padding: 6px 14px; cursor: pointer; transition: background 0.2s; width: 100%; justify-content: center; }
+  .back-btn:hover { background: rgba(91,142,255,0.18); }
+  .sidebar nav { padding: 16px 0; flex: 1; }
+  .nav-section { padding: 6px 20px 4px; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--sp-muted); font-weight: 700; margin-top: 10px; }
+  .nav-link { display: flex; align-items: center; gap: 10px; padding: 8px 20px; color: var(--sp-muted); text-decoration: none; font-size: 0.82rem; font-weight: 500; transition: all 0.2s; border-left: 2px solid transparent; }
+  .nav-link:hover, .nav-link.active { color: var(--sp-text); background: rgba(91,142,255,0.07); border-left-color: var(--sp-accent); }
+  .nav-link .icon { font-size: 1rem; flex-shrink: 0; }
+
+  .main { margin-left: 240px; min-height: 100vh; }
+
+  .hero { background: linear-gradient(135deg, #0A0E1A 0%, #0F1628 50%, #0A1A2E 100%); border-bottom: 1px solid var(--sp-border); padding: 56px 48px 52px; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -80px; right: -80px; width: 400px; height: 400px; background: radial-gradient(ellipse, rgba(91,142,255,0.12) 0%, transparent 70%); pointer-events: none; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(91,142,255,0.1); border: 1px solid rgba(91,142,255,0.25); border-radius: 100px; padding: 4px 14px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sp-accent); margin-bottom: 22px; }
+  .hero-eyebrow::before { content: '⚡'; }
+  .hero h1 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; color: var(--sp-white); max-width: 640px; margin-bottom: 14px; }
+  .hero h1 span { background: linear-gradient(135deg, var(--sp-accent), #8BB8FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-sub { font-size: 1rem; color: var(--sp-muted); max-width: 520px; line-height: 1.6; }
+  .hero-meta { display: flex; gap: 28px; margin-top: 28px; flex-wrap: wrap; }
+  .hero-stat { display: flex; flex-direction: column; gap: 2px; }
+  .hero-stat strong { font-size: 1.3rem; font-weight: 800; color: var(--sp-white); }
+  .hero-stat span { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--sp-muted); }
+  .hero-divider { width: 1px; background: var(--sp-border); align-self: stretch; }
+
+  .section { padding: 48px 48px 56px; border-bottom: 1px solid var(--sp-border); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+  .section-icon { width: 40px; height: 40px; border-radius: 10px; background: rgba(91,142,255,0.12); border: 1px solid rgba(91,142,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+  .section-title { font-size: 1.3rem; font-weight: 700; color: var(--sp-white); letter-spacing: -0.02em; }
+  .section-desc { font-size: 0.9rem; color: var(--sp-muted); margin-top: 2px; }
+
+  .qr-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; margin-top: 4px; }
+  .qr-card { background: var(--sp-card); border: 1px solid var(--sp-border); border-radius: 12px; padding: 18px 20px; transition: border-color 0.2s, transform 0.2s; }
+  .qr-card:hover { border-color: var(--sp-accent); transform: translateY(-2px); }
+  .qr-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--sp-accent); margin-bottom: 6px; }
+  .qr-value { font-size: 0.9rem; color: var(--sp-text); font-weight: 500; }
+  .qr-detail { font-size: 0.78rem; color: var(--sp-muted); margin-top: 4px; line-height: 1.5; }
+
+  .about-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+  .about-card { background: var(--sp-card); border: 1px solid var(--sp-border); border-radius: 12px; padding: 20px; }
+  .about-card-icon { font-size: 1.5rem; margin-bottom: 10px; display: block; }
+  .about-card h4 { font-size: 0.88rem; font-weight: 700; color: var(--sp-white); margin-bottom: 6px; }
+  .about-card p { font-size: 0.8rem; color: var(--sp-muted); line-height: 1.55; }
+
+  .test-table-wrapper { overflow-x: auto; border-radius: 12px; border: 1px solid var(--sp-border); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.83rem; }
+  thead th { background: var(--sp-card); color: var(--sp-muted); font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--sp-border); white-space: nowrap; }
+  tbody tr { border-bottom: 1px solid var(--sp-border); transition: background 0.15s; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: rgba(91,142,255,0.04); }
+  tbody td { padding: 10px 16px; color: var(--sp-text); vertical-align: middle; }
+  .tube-sst { display: inline-flex; align-items: center; gap: 5px; background: rgba(234,179,8,0.12); border: 1px solid rgba(234,179,8,0.25); color: #EAB308; border-radius: 100px; padding: 2px 10px; font-size: 0.72rem; font-weight: 700; }
+  .tube-lav { display: inline-flex; align-items: center; gap: 5px; background: rgba(168,85,247,0.12); border: 1px solid rgba(168,85,247,0.25); color: #A855F7; border-radius: 100px; padding: 2px 10px; font-size: 0.72rem; font-weight: 700; }
+  .test-id { font-family: 'Courier New', monospace; font-size: 0.78rem; color: var(--sp-muted); }
+
+  .tube-summary { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 24px; }
+  .tube-chip { display: flex; align-items: center; gap: 10px; background: var(--sp-card); border: 1px solid var(--sp-border); border-radius: 10px; padding: 12px 18px; }
+  .tube-dot { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; }
+  .tube-chip .label { font-size: 0.82rem; color: var(--sp-text); font-weight: 600; }
+  .tube-chip .count { font-size: 0.75rem; color: var(--sp-muted); }
+
+  .steps { display: flex; flex-direction: column; gap: 0; position: relative; }
+  .steps::before { content: ''; position: absolute; left: 18px; top: 36px; bottom: 36px; width: 1px; background: var(--sp-border); }
+  .step { display: flex; gap: 18px; align-items: flex-start; padding: 16px 0; }
+  .step-num { width: 36px; height: 36px; border-radius: 50%; background: rgba(91,142,255,0.12); border: 1px solid rgba(91,142,255,0.25); display: flex; align-items: center; justify-content: center; font-size: 0.78rem; font-weight: 800; color: var(--sp-accent); flex-shrink: 0; position: relative; z-index: 1; }
+  .step-body { padding-top: 6px; }
+  .step-body strong { display: block; font-size: 0.9rem; font-weight: 700; color: var(--sp-white); margin-bottom: 4px; }
+  .step-body p { font-size: 0.82rem; color: var(--sp-muted); line-height: 1.55; }
+  .step-body .highlight { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.2); border-radius: 6px; padding: 2px 8px; color: var(--sp-amber); font-size: 0.78rem; font-weight: 600; display: inline-block; margin-top: 4px; }
+
+  .rules-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+  .rule-card { background: var(--sp-card); border: 1px solid var(--sp-border); border-radius: 12px; padding: 20px; position: relative; overflow: hidden; }
+  .rule-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; }
+  .rule-card.danger::before { background: var(--sp-red); }
+  .rule-card.warn::before { background: var(--sp-amber); }
+  .rule-card.safe::before { background: var(--sp-green); }
+  .rule-emoji { font-size: 1.6rem; margin-bottom: 10px; display: block; }
+  .rule-card h4 { font-size: 0.88rem; font-weight: 700; color: var(--sp-white); margin-bottom: 6px; }
+  .rule-card p { font-size: 0.8rem; color: var(--sp-muted); line-height: 1.55; }
+
+  .info-block { background: var(--sp-card); border: 1px solid var(--sp-border); border-radius: 12px; padding: 24px 28px; margin-bottom: 16px; }
+  .info-block h4 { font-size: 0.95rem; font-weight: 700; color: var(--sp-white); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .info-block p, .info-block li { font-size: 0.85rem; color: var(--sp-muted); line-height: 1.65; margin-bottom: 6px; }
+  .info-block ul { padding-left: 18px; }
+  .info-block li { margin-bottom: 4px; }
+
+  .alert { display: flex; gap: 12px; border-radius: 10px; padding: 14px 18px; margin-bottom: 16px; font-size: 0.83rem; align-items: flex-start; }
+  .alert-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+  .alert strong { font-weight: 700; display: block; margin-bottom: 2px; }
+  .alert.danger { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); color: #FCA5A5; }
+  .alert.warn { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2); color: #FCD34D; }
+  .alert.info { background: rgba(91,142,255,0.08); border: 1px solid rgba(91,142,255,0.2); color: #93B4FF; }
+
+  .sf-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin-top: 12px; }
+  .sf-table th { background: var(--sp-card); padding: 10px 14px; text-align: left; color: var(--sp-muted); font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; border-bottom: 1px solid var(--sp-border); }
+  .sf-table td { padding: 10px 14px; border-bottom: 1px solid var(--sp-border); color: var(--sp-text); vertical-align: top; }
+  .sf-table tr:last-child td { border-bottom: none; }
+  .sf-table .field { color: var(--sp-accent); font-weight: 600; font-size: 0.8rem; }
+  .sf-table .required { color: var(--sp-red); font-size: 0.7rem; font-weight: 700; }
+
+  .training-footer { background: var(--sp-deep); border-top: 1px solid var(--sp-border); padding: 28px 48px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .training-footer p { font-size: 0.75rem; color: var(--sp-muted); }
+  .training-footer .logo-small { height: 22px; opacity: 0.7; }
+
+  .mobile-header { display: none; background: var(--sp-deep); border-bottom: 1px solid var(--sp-border); padding: 14px 20px; align-items: center; justify-content: space-between; }
+
+  @media (max-width: 900px) {
+    .sidebar { display: none; }
+    .main { margin-left: 0; }
+    .hero, .section { padding: 32px 20px; }
+    .training-footer { padding: 20px; }
+    .mobile-header { display: flex; }
+    .idx-header { padding: 16px 20px; }
+    .idx-hero { padding: 40px 20px 36px; }
+    .idx-modules { padding: 0 20px 40px; }
+    .idx-footer { padding: 16px 20px; }
+  }
+  @media print { .sidebar { display: none; } .main { margin-left: 0; } }
+</style>
+</head>
+<body>
+
+<!-- ═══ INDEX PAGE ═══ -->
+<div id="index-page">
+  <header class="idx-header">
+    <img src="https://uswtrain.github.io/GenRapid/US_Wellness_Logo.png" alt="US Wellness" onerror="this.style.display='none'">
+    <div class="idx-header-right">
+      <span>Training Materials</span>
+      <strong>Superpower Health Events</strong>
+    </div>
+  </header>
+
+  <div class="idx-hero">
+    <div class="idx-logo-wrap">
+      <img src="https://uswtrain.github.io/GenRapid/US_Wellness_Logo.png" alt="US Wellness" onerror="this.style.display='none'">
+    </div>
+    <div class="idx-eyebrow">⚡ Screener Training Manual</div>
+    <h1>Superpower Health<br><span class="grad">Event Training</span></h1>
+    <p>Everything you need to run a Superpower Health biomarker draw event — specimen collection, privacy requirements, emergency protocols, and more.</p>
+    <button class="idx-start-btn" onclick="openManual(null)">Open Training Manual &nbsp;→</button>
+    <div class="idx-pills">
+      <span class="idx-pill">5 SST + 1 Lavender</span>
+      <span class="idx-pill">Quest Diagnostics</span>
+      <span class="idx-pill">22 Ordered Tests</span>
+      <span class="idx-pill">4-Hour Transport Window</span>
+    </div>
+  </div>
+
+  <div class="idx-modules">
+    <div class="idx-modules-label">Training Modules — click any card to jump directly to that section</div>
+    <div class="idx-grid">
+
+      <div class="idx-card" onclick="openManual('about')">
+        <div class="idx-card-icon" style="background:rgba(91,142,255,0.1);">⚡</div>
+        <div class="idx-tag">Overview</div>
+        <h3>What is Superpower Health?</h3>
+        <p>Understand the client, their platform, and what your draw powers for each member.</p>
+      </div>
+
+      <div class="idx-card" onclick="openManual('quickref')">
+        <div class="idx-card-icon" style="background:rgba(91,142,255,0.1);">📋</div>
+        <div class="idx-tag">Reference</div>
+        <h3>Quick Reference</h3>
+        <p>At-a-glance cards for tubes, centrifuge settings, inversions, labeling, and key rules.</p>
+      </div>
+
+      <div class="idx-card" onclick="openManual('tests')">
+        <div class="idx-card-icon" style="background:rgba(234,179,8,0.1);">🧪</div>
+        <div class="idx-tag gold">22 Tests</div>
+        <h3>Tests to Be Performed</h3>
+        <p>Full ordered panel with tube assignments — 20 SST tests and 2 lavender tests.</p>
+      </div>
+
+      <div class="idx-card" onclick="openManual('collection')">
+        <div class="idx-card-icon" style="background:rgba(239,68,68,0.1);">🩸</div>
+        <div class="idx-tag warn">Time-Critical</div>
+        <h3>Specimen Collection SOP</h3>
+        <p>8-step procedure from venipuncture through cooler storage and Quest delivery.</p>
+      </div>
+
+      <div class="idx-card" onclick="openManual('critical')">
+        <div class="idx-card-icon" style="background:rgba(239,68,68,0.1);">⚠️</div>
+        <div class="idx-tag red">Required</div>
+        <h3>Critical Rules at a Glance</h3>
+        <p>Non-negotiable standards: gloves, PHI handling, and sharps disposal.</p>
+      </div>
+
+      <div class="idx-card" onclick="openManual('salesforce')">
+        <div class="idx-card-icon" style="background:rgba(91,142,255,0.1);">💻</div>
+        <div class="idx-tag">Operations</div>
+        <h3>Salesforce Data Entry</h3>
+        <p>Required fields, same-day entry rules, and common errors to avoid.</p>
+      </div>
+
+      <div class="idx-card" onclick="openManual('hardware')">
+        <div class="idx-card-icon" style="background:rgba(91,142,255,0.1);">🖥️</div>
+        <div class="idx-tag">Policy</div>
+        <h3>Hardware &amp; Software Policy</h3>
+        <p>Approved devices, login rules, connectivity, and printing requirements.</p>
+      </div>
+
+      <div class="idx-card" onclick="openManual('hipaa')">
+        <div class="idx-card-icon" style="background:rgba(239,68,68,0.1);">🔒</div>
+        <div class="idx-tag red">HIPAA</div>
+        <h3>HIPAA &amp; Privacy</h3>
+        <p>PHI rules, what you must never do, consent requirements, and your responsibilities.</p>
+      </div>
+
+      <div class="idx-card" onclick="openManual('emergency')">
+        <div class="idx-card-icon" style="background:rgba(239,68,68,0.1);">🚨</div>
+        <div class="idx-tag red">Emergency</div>
+        <h3>Medical Emergency Protocol</h3>
+        <p>Vasovagal, hematoma, anaphylaxis — 6-step response and emergency contacts.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="idx-footer">
+    <p>US Wellness · Superpower Health Events · For internal use only · Not for distribution</p>
+    <img src="https://uswtrain.github.io/GenRapid/US_Wellness_Logo.png" alt="US Wellness" onerror="this.style.display='none'">
+  </footer>
+</div>
+
+<!-- ═══ MANUAL PAGE ═══ -->
+<div id="manual-page">
+
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <img src="https://uswtrain.github.io/GenRapid/US_Wellness_Logo.png" alt="US Wellness" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+    <div style="display:none; font-weight:800; font-size:1rem; color:var(--sp-white);">US Wellness</div>
+    <div class="sidebar-badge">Superpower Health • 2025</div>
+  </div>
+  <div class="sidebar-back">
+    <button class="back-btn" onclick="showIndex()">← Back to Index</button>
+  </div>
+  <nav>
+    <div class="nav-section">Overview</div>
+    <a href="#about" class="nav-link" onclick="handleNavClick(event,'about')"><span class="icon">⚡</span> What is Superpower</a>
+    <a href="#quickref" class="nav-link" onclick="handleNavClick(event,'quickref')"><span class="icon">📋</span> Quick Reference</a>
+    <div class="nav-section">Specimens</div>
+    <a href="#tests" class="nav-link" onclick="handleNavClick(event,'tests')"><span class="icon">🧪</span> Tests Panel</a>
+    <a href="#collection" class="nav-link" onclick="handleNavClick(event,'collection')"><span class="icon">🩸</span> Collection SOP</a>
+    <a href="#critical" class="nav-link" onclick="handleNavClick(event,'critical')"><span class="icon">⚠️</span> Critical Rules</a>
+    <div class="nav-section">Operations</div>
+    <a href="#salesforce" class="nav-link" onclick="handleNavClick(event,'salesforce')"><span class="icon">💻</span> Salesforce Entry</a>
+    <a href="#hardware" class="nav-link" onclick="handleNavClick(event,'hardware')"><span class="icon">🖥️</span> Hardware &amp; Software</a>
+    <a href="#hipaa" class="nav-link" onclick="handleNavClick(event,'hipaa')"><span class="icon">🔒</span> HIPAA &amp; Privacy</a>
+    <a href="#emergency" class="nav-link" onclick="handleNavClick(event,'emergency')"><span class="icon">🚨</span> Medical Emergency</a>
+  </nav>
+</aside>
+
+<main class="main">
+  <div class="mobile-header">
+    <strong style="color:var(--sp-white); font-size:0.9rem;">Superpower Health Training</strong>
+    <button class="back-btn" style="width:auto;" onclick="showIndex()">← Index</button>
+  </div>
+
+  <div class="hero">
+    <div class="hero-eyebrow">Screener Training Manual</div>
+    <h1>Superpower <span>Health Events</span></h1>
+    <p class="hero-sub">Complete field guide for US Wellness screeners conducting Superpower Health biomarker events. Read before your first event.</p>
+    <div class="hero-meta">
+      <div class="hero-stat"><strong>5 SST</strong><span>Gold-top tubes</span></div>
+      <div class="hero-divider"></div>
+      <div class="hero-stat"><strong>1 LAV</strong><span>Lavender tube</span></div>
+      <div class="hero-divider"></div>
+      <div class="hero-stat"><strong>22</strong><span>Ordered tests</span></div>
+      <div class="hero-divider"></div>
+      <div class="hero-stat"><strong>Quest</strong><span>Lab partner</span></div>
+    </div>
+  </div>
+
+
+  <!-- ─── QUICK REFERENCE ─── -->
+  <section class="section" id="quickref">
+    <div class="section-header">
+      <div class="section-icon">📋</div>
+      <div>
+        <div class="section-title">Quick Reference</div>
+        <div class="section-desc">At-a-glance info for day-of operations</div>
+      </div>
+    </div>
+
+    <div class="qr-grid">
+
+      <div class="qr-card">
+        <div class="qr-label">Tubes Required</div>
+        <div class="qr-value">5 SST + 1 Lavender</div>
+        <div class="qr-detail">Six tubes per participant. SST must be centrifuged within 1 hour of draw.</div>
+      </div>
+
+      <div class="qr-card">
+        <div class="qr-label">Centrifuge Settings</div>
+        <div class="qr-value">1,600 – 2,200 RCF(g)</div>
+        <div class="qr-detail">Run 10–15 minutes. Begin within 1 hour of collection.</div>
+      </div>
+
+      <div class="qr-card">
+        <div class="qr-label">Tube Inversions</div>
+        <div class="qr-value">≤ 10 gentle inversions</div>
+        <div class="qr-detail">More than 10 inversions may compromise sample integrity.</div>
+      </div>
+
+      <div class="qr-card">
+        <div class="qr-label">Labeling</div>
+        <div class="qr-value">Handwrite Name + DOB</div>
+        <div class="qr-detail">Label all 6 tubes by hand. Never remove the stopper.</div>
+      </div>
+
+      <div class="qr-card">
+        <div class="qr-label">Packaging</div>
+        <div class="qr-value">6 tubes → 1 lab bag</div>
+        <div class="qr-detail">Insert printed lab requisition in the front sleeve of the specimen bag.</div>
+      </div>
+
+      <div class="qr-card">
+        <div class="qr-label">Transport Deadline</div>
+        <div class="qr-value">Within 4 hours</div>
+        <div class="qr-detail">Deliver to Quest within 4 hours of collection. Store in cooler with ice packs.</div>
+      </div>
+
+      <div class="qr-card">
+        <div class="qr-label">Needle / Approach</div>
+        <div class="qr-value">Straight needle (standard)</div>
+        <div class="qr-detail">Butterfly + discard tube available for difficult sticks.</div>
+      </div>
+
+      <div class="qr-card">
+        <div class="qr-label">Glove Change</div>
+        <div class="qr-value">Between every participant</div>
+        <div class="qr-detail">Sanitize hands before gloving. Open sterile packaging in front of participant.</div>
+      </div>
+
+      <div class="qr-card">
+        <div class="qr-label">Results / PHI</div>
+        <div class="qr-value">Never read results aloud</div>
+        <div class="qr-detail">Point to the value on the form. All biometric data is PHI.</div>
+      </div>
+
+      <div class="qr-card">
+        <div class="qr-label">Sharps Disposal</div>
+        <div class="qr-value">Biohazard container only</div>
+        <div class="qr-detail">All lancets and blood-contact materials go in the sharps/biohazard container.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── ABOUT SUPERPOWER ─── -->
+  <section class="section" id="about">
+    <div class="section-header">
+      <div class="section-icon">⚡</div>
+      <div>
+        <div class="section-title">What is Superpower Health?</div>
+        <div class="section-desc">Understanding the client and their mission</div>
+      </div>
+    </div>
+
+    <div class="info-block">
+      <p>Superpower is a digital preventive healthcare startup operating a <strong style="color:var(--sp-white);">"health super-app"</strong> platform focused on longevity and functional medicine. Founded in 2023, it provides affordable, data-driven, and proactive health tracking as an alternative to traditional reactive primary care. US Wellness supports Superpower by conducting the on-site blood draws that power their platform.</p>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-card">
+        <span class="about-card-icon">🧬</span>
+        <h4>Biomarker Testing</h4>
+        <p>Members receive annual or biannual blood draws testing 100+ biomarkers across hormones, metabolic health, inflammation, and toxins.</p>
+      </div>
+      <div class="about-card">
+        <span class="about-card-icon">🔗</span>
+        <h4>Data Integration</h4>
+        <p>Lab results are synthesized with EHRs, genetics, and wearable data from Oura Ring, WHOOP, and other platforms.</p>
+      </div>
+      <div class="about-card">
+        <span class="about-card-icon">🤖</span>
+        <h4>AI Health Intelligence</h4>
+        <p>Proprietary AI interprets data to calculate biological age, generate health scores, and flag early chronic disease risks.</p>
+      </div>
+      <div class="about-card">
+        <span class="about-card-icon">🗺️</span>
+        <h4>Actionable Roadmaps</h4>
+        <p>Personalized lifestyle protocols, supplement regimens, and diet modifications tailored to each member's specific biology.</p>
+      </div>
+      <div class="about-card">
+        <span class="about-card-icon">💬</span>
+        <h4>Concierge Support</h4>
+        <p>24/7 AI concierge and care team of licensed functional medicine clinicians accessible to all members.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TEST PANEL ─── -->
+  <section class="section" id="tests">
+    <div class="section-header">
+      <div class="section-icon">🧪</div>
+      <div>
+        <div class="section-title">Tests to Be Performed</div>
+        <div class="section-desc">Complete ordered panel — all tests drawn onsite and sent to Labcorp</div>
+      </div>
+    </div>
+
+    <div class="tube-summary">
+      <div class="tube-chip">
+        <div class="tube-dot" style="background:#EAB308;"></div>
+        <div>
+          <div class="label">5 × SST (Gold Top)</div>
+          <div class="count">Serum Separator Tubes — centrifuge required</div>
+        </div>
+      </div>
+      <div class="tube-chip">
+        <div class="tube-dot" style="background:#A855F7;"></div>
+        <div>
+          <div class="label">1 × Lavender Top</div>
+          <div class="count">EDTA — CBC & A1c panel</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="test-table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Test ID</th>
+            <th>Test Name</th>
+            <th>Tube</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="test-id">249</td>
+            <td>ANA Screen, IFA with Reflex</td>
+            <td><span class="tube-sst">SST</span></td>
+          </tr>
+          <tr>
+            <td class="test-id">367</td>
+            <td>Cortisol, Total</td>
+            <td><span class="tube-sst">SST</span></td>
+          </tr>
+          <tr>
+            <td class="test-id">402</td>
+            <td>DHEA Sulfate</td>
+            <td><span class="tube-sst">SST</span></td>
+          </tr>
+          <tr>
+            <td class="test-id">482</td>
+            <td>GGT</td>
+            <td><span class="tube-sst">SST</span></td>
+          </tr>
+          <tr>
+            <td class="test-id">905</td>
+            <td>Uric Acid</td>
+            <td><span class="tube-sst">SST</span></td>
+          </tr>
+          <tr>
+            <td class="test-id">4021</td>
+            <td>Estradiol</td>
+            <td><span class="tube-sst">SST</span></td>
+          </tr>
+          <tr>
+            <td class="test-id">4418</td>
+            <td>Rheumatoid Factor</td>
+            <td><span class="tube-sst">SST</span></td>
+          </tr>
+          <tr>
+            <td class="test-id">5224</td>
+            <td>Apolipoprotein B</td>
+            <td><span class="tube-sst">SST</span></td>
+          </tr>
+          <tr>
+            <td class="test-id">5616</td>
+            <td>Iron, TIBC and Ferritin Panel</td>
+            <td><span class="tube-sst">SST</span></td>
+          </tr>
+          <tr>
+            <td class="test-id">7260</td>
+            <td>TPO &amp; Thyroglobulin Antibodies</td>
+            <td><span class="tube-sst">SST</span></td>
+          </tr>
+          <tr>
+            <td class="test-id">7286</td>
+            <td>Bilirubin, Fractionated</td>
+            <td><span class="tube-sst">SST</span></td>
+          </tr>
+          <tr>
+            <td class="test-id">7444</td>
+            <td>Thyroid Panel with TSH</td>
+            <td><span class="tube-sst">SST</span></td>
+          </tr>
+          <tr>
+            <td class="test-id">10124</td>
+            <td>hs-CRP</td>
+            <td><span class="tube-sst">SST</span></td>
+          </tr>
+          <tr>
+            <td class="test-id">10231</td>
+            <td>Comprehensive Metabolic Panel</td>
+            <td><span class="tube-sst">SST</span></td>
+          </tr>
+          <tr>
+            <td class="test-id">11173</td>
+            <td>CCP Antibody (IgG)</td>
+            <td><span class="tube-sst">SST</span></td>
+          </tr>
+          <tr>
+            <td class="test-id">14966</td>
+            <td>Testosterone, Free/Bioavailable/Total, MS</td>
+            <td><span class="tube-sst">SST</span></td>
+          </tr>
+          <tr>
+            <td class="test-id">17306</td>
+            <td>Vitamin D, 25-OH, Immunoassay</td>
+            <td><span class="tube-sst">SST</span></td>
+          </tr>
+          <tr>
+            <td class="test-id">19543</td>
+            <td>Lipid Panel with Ratios</td>
+            <td><span class="tube-sst">SST</span></td>
+          </tr>
+          <tr>
+            <td class="test-id">19955</td>
+            <td>Celiac Disease Comprehensive Panel</td>
+            <td><span class="tube-sst">SST</span></td>
+          </tr>
+          <tr>
+            <td class="test-id">34429</td>
+            <td>T3, Free</td>
+            <td><span class="tube-sst">SST</span></td>
+          </tr>
+          <tr style="background: rgba(168,85,247,0.04);">
+            <td class="test-id">6399</td>
+            <td>CBC with Differential and Platelets</td>
+            <td><span class="tube-lav">Lavender</span></td>
+          </tr>
+          <tr style="background: rgba(168,85,247,0.04);">
+            <td class="test-id">16802</td>
+            <td>Hemoglobin A1c with eAG</td>
+            <td><span class="tube-lav">Lavender</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ─── SPECIMEN COLLECTION ─── -->
+  <section class="section" id="collection">
+    <div class="section-header">
+      <div class="section-icon">🩸</div>
+      <div>
+        <div class="section-title">Specimen Collection &amp; Management</div>
+        <div class="section-desc">Step-by-step SOP — follow in exact order</div>
+      </div>
+    </div>
+
+    <div class="alert warn">
+      <span class="alert-icon">⏱️</span>
+      <div><strong>Time-Critical Reminder</strong>Centrifuge within 1 hour of draw. Deliver specimens to Quest within 4 hours of collection.</div>
+    </div>
+
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <strong>Perform Venipuncture</strong>
+          <p>Use a straight needle as standard. Butterfly needles and discard tubes are provided for hard-stick participants.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <strong>Invert Tubes Gently</strong>
+          <p>Invert each tube no more than ten (10) times. Further inversion may cause alterations in sample integrity.</p>
+          <span class="highlight">≤ 10 inversions per tube</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <strong>Label Every Tube by Hand</strong>
+          <p>Handwrite the patient's <strong style="color:var(--sp-white);">Name</strong> and <strong style="color:var(--sp-white);">Date of Birth</strong> on each of the 6 tubes. Do not rely on printed labels alone.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <strong>Do Not Remove the Stopper</strong>
+          <p>Tube stoppers must remain in place at all times. Never uncap tubes in the field.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <strong>Centrifuge SST Tubes</strong>
+          <p>Centrifuge for 10–15 minutes at <strong style="color:var(--sp-white);">1,600–2,200 RCF(g)</strong> within one (1) hour of collection.</p>
+          <span class="highlight">5 SST tubes only — lavender does NOT go in centrifuge</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">6</div>
+        <div class="step-body">
+          <strong>Package Specimens</strong>
+          <p>Place all 6 tubes from one patient into one lab bag. Insert the patient's printed lab requisition form into the front sleeve of the specimen bag.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">7</div>
+        <div class="step-body">
+          <strong>Store in Cooler</strong>
+          <p>Place labeled specimen bag into cooler with ice packs immediately after packaging.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">8</div>
+        <div class="step-body">
+          <strong>Deliver to Labcorp</strong>
+          <p>Transport all specimens to Quest within <strong style="color:var(--sp-white);">4 hours</strong> of collection. Do not leave specimens unattended or in warm conditions.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── CRITICAL RULES ─── -->
+  <section class="section" id="critical">
+    <div class="section-header">
+      <div class="section-icon">⚠️</div>
+      <div>
+        <div class="section-title">Critical Rules at a Glance</div>
+        <div class="section-desc">Non-negotiable standards for every event</div>
+      </div>
+    </div>
+
+    <div class="rules-grid">
+
+      <div class="rule-card safe">
+        <span class="rule-emoji">🧤</span>
+        <h4>Gloves &amp; Hygiene</h4>
+        <p>Change gloves between every participant. Sanitize hands before gloving. Open sterile packaging in front of the participant.</p>
+      </div>
+
+      <div class="rule-card danger">
+        <span class="rule-emoji">🔒</span>
+        <h4>Privacy (PHI)</h4>
+        <p>Never say results aloud. Point to the recorded value on the results form. Blood pressure and all biometric data is PHI.</p>
+      </div>
+
+      <div class="rule-card warn">
+        <span class="rule-emoji">🗑️</span>
+        <h4>Sharps Disposal</h4>
+        <p>All lancets and any material that touched blood go directly into the sharps/biohazard container. No exceptions.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── SALESFORCE DATA ENTRY ─── -->
+  <section class="section" id="salesforce">
+    <div class="section-header">
+      <div class="section-icon">💻</div>
+      <div>
+        <div class="section-title">Salesforce Data Entry</div>
+        <div class="section-desc">Accurate, timely entry required for every participant</div>
+      </div>
+    </div>
+
+    <div class="alert info">
+      <span class="alert-icon">ℹ️</span>
+      <div><strong>Enter All Data Same Day</strong>All participant records must be entered in Salesforce on the day of the event. Do not batch entries or carry forward to the next day.</div>
+    </div>
+
+    <div class="info-block">
+      <h4>📝 During &amp; After the Event</h4>
+      <ul>
+        <li>Pull up the participant's record before beginning any screening activity.</li>
+        <li>Record each completed screening as it happens — do not wait until end of day.</li>
+        <li>Enter the exact time each participant was seen.</li>
+        <li>Indicate specimen collected status (Yes/No) for each participant.</li>
+        <li>Flag any participants who declined, were unable to draw, or required special handling with appropriate notes in the record.</li>
+        <li>Document any incidents or participant concerns in the Salesforce notes field.</li>
+      </ul>
+    </div>
+
+    <div class="info-block">
+      <h4>📝 Required Fields per Record</h4>
+      <div style="overflow-x:auto; border-radius:8px; border: 1px solid var(--sp-border); margin-top: 10px;">
+        <table class="sf-table">
+          <thead>
+            <tr>
+              <th>Field</th>
+              <th>Notes</th>
+              <th>Required?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="field">First &amp; Last Name</td>
+              <td>Match exactly to registration</td>
+              <td class="required">REQUIRED</td>
+            </tr>
+            <tr>
+              <td class="field">Date of Birth</td>
+              <td>Used for tube labeling verification</td>
+              <td class="required">REQUIRED</td>
+            </tr>
+            <tr>
+              <td class="field">Event / Screening Date</td>
+              <td>Auto-populates from event — verify</td>
+              <td class="required">REQUIRED</td>
+            </tr>
+            <tr>
+              <td class="field">Specimen Collected</td>
+              <td>Yes / No / Attempted (with reason)</td>
+              <td class="required">REQUIRED</td>
+            </tr>
+            <tr>
+              <td class="field">Time of Draw</td>
+              <td>Actual venipuncture time</td>
+              <td class="required">REQUIRED</td>
+            </tr>
+            <tr>
+              <td class="field">Screener Name</td>
+              <td>Phlebotomist who performed draw</td>
+              <td class="required">REQUIRED</td>
+            </tr>
+            <tr>
+              <td class="field">Notes / Comments</td>
+              <td>Difficult stick, refusal, incidents</td>
+              <td style="color:var(--sp-muted); font-size:0.75rem;">If applicable</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="alert danger">
+      <span class="alert-icon">🚫</span>
+      <div><strong>Common Entry Errors to Avoid</strong>Mismatched DOB vs. tube label, missing specimen status, duplicate participant records. Always double-check before saving.</div>
+    </div>
+  </section>
+
+  <!-- ─── HARDWARE & SOFTWARE ─── -->
+  <section class="section" id="hardware">
+    <div class="section-header">
+      <div class="section-icon">🖥️</div>
+      <div>
+        <div class="section-title">Hardware &amp; Software Policy</div>
+        <div class="section-desc">Equipment standards and acceptable use</div>
+      </div>
+    </div>
+
+    <div class="info-block">
+      <h4>💻 Approved Devices</h4>
+      <ul>
+        <li>Use only US Wellness-issued or client-approved devices for event operations.</li>
+        <li>Personal phones may be used only for communication with the event coordinator — not for accessing participant data or Salesforce.</li>
+        <li>Tablets or laptops used for Salesforce entry must be password-protected and locked when unattended.</li>
+        <li>Do not leave devices unsecured in public areas at any time during the event.</li>
+      </ul>
+    </div>
+
+    <div class="info-block">
+      <h4>🔒 Login &amp; Access</h4>
+      <ul>
+        <li>Use your personal Salesforce credentials — never share login information with another team member.</li>
+        <li>Log out of Salesforce completely at the end of every event session.</li>
+        <li>Do not save passwords in shared browsers or on shared devices.</li>
+        <li>Report any suspected unauthorized access to your supervisor immediately.</li>
+      </ul>
+    </div>
+
+    <div class="info-block">
+      <h4>📡 Connectivity</h4>
+      <ul>
+        <li>Confirm Wi-Fi or hotspot connectivity before participants arrive.</li>
+        <li>If internet is unavailable, record data on approved paper backup forms and enter into Salesforce as soon as connectivity is restored — same day.</li>
+        <li>Do not use public, unsecured Wi-Fi networks to access Salesforce or any system containing PHI.</li>
+      </ul>
+    </div>
+
+    <div class="info-block">
+      <h4>🖨️ Printing &amp; Requisitions</h4>
+      <ul>
+        <li>Lab requisition forms must be printed prior to the event. Confirm printer is operational during setup.</li>
+        <li>Each participant must have their own individual printed requisition — forms cannot be shared or reused.</li>
+        <li>Place the requisition in the front sleeve of the specimen bag before sealing.</li>
+      </ul>
+    </div>
+
+    <div class="alert warn">
+      <span class="alert-icon">⚠️</span>
+      <div><strong>Equipment Issues</strong>If any equipment malfunctions during an event (centrifuge, printer, device), contact your supervisor immediately. Do not improvise with unapproved equipment.</div>
+    </div>
+  </section>
+
+  <!-- ─── HIPAA & PRIVACY ─── -->
+  <section class="section" id="hipaa">
+    <div class="section-header">
+      <div class="section-icon">🔒</div>
+      <div>
+        <div class="section-title">HIPAA &amp; Privacy</div>
+        <div class="section-desc">Protecting participant health information — always</div>
+      </div>
+    </div>
+
+    <div class="alert danger">
+      <span class="alert-icon">🔴</span>
+      <div><strong>PHI is Everything</strong>Any information that could identify a participant and relates to their health status, lab results, or medical history is Protected Health Information (PHI). Treat all participant data as PHI.</div>
+    </div>
+
+    <div class="info-block">
+      <h4>🚫 What You Must Never Do</h4>
+      <ul>
+        <li>Never announce, read aloud, or verbally share any participant result — point to the form.</li>
+        <li>Never leave participant records, printed forms, or tubes visible to other participants.</li>
+        <li>Never photograph participant data, results forms, or tubes with any device.</li>
+        <li>Never discuss participant information with anyone who is not directly involved in that participant's care or the event operation.</li>
+        <li>Never transmit PHI via personal text message, email, or unsecured chat.</li>
+      </ul>
+    </div>
+
+    <div class="info-block">
+      <h4>✅ Your Privacy Responsibilities</h4>
+      <ul>
+        <li>Conduct conversations about results or health information privately — position yourself so others cannot hear.</li>
+        <li>Ensure paper forms and result printouts are face-down when not in use.</li>
+        <li>Shred all unused or incorrect forms on-site using a provided shredder or secure destruction bag.</li>
+        <li>Log out of all systems when stepping away from a device, even briefly.</li>
+        <li>Report any potential privacy breach (lost forms, unauthorized access, data left unattended) to your supervisor immediately.</li>
+      </ul>
+    </div>
+
+    <div class="info-block">
+      <h4>📋 Consent &amp; Authorization</h4>
+      <ul>
+        <li>Participants must have signed Superpower's authorization and consent prior to blood draw. Verify consent is on file before proceeding.</li>
+        <li>If a participant has not completed consent, do not draw. Direct them to complete the authorization through the Superpower app or event coordinator.</li>
+        <li>Participants may withdraw consent at any time. Do not pressure or persuade.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ─── MEDICAL EMERGENCY ─── -->
+  <section class="section" id="emergency">
+    <div class="section-header">
+      <div class="section-icon">🚨</div>
+      <div>
+        <div class="section-title">Medical Emergency Protocol</div>
+        <div class="section-desc">Know the steps before you need them</div>
+      </div>
+    </div>
+
+    <div class="alert danger">
+      <span class="alert-icon">🚨</span>
+      <div><strong>Call 911 First</strong>In any life-threatening emergency, call 911 immediately. Do not delay emergency services to contact a supervisor.</div>
+    </div>
+
+    <div class="info-block">
+      <h4>🩺 Common Reactions to Watch For</h4>
+      <ul>
+        <li><strong style="color:var(--sp-white);">Vasovagal (Fainting / Near-Fainting):</strong> Pallor, sweating, dizziness, loss of consciousness. Lay participant flat, elevate legs, ensure airway is clear.</li>
+        <li><strong style="color:var(--sp-white);">Hematoma:</strong> Swelling/bruising at draw site. Apply firm pressure with gauze, elevate the arm.</li>
+        <li><strong style="color:var(--sp-white);">Allergic Reaction:</strong> Rash, hives, shortness of breath. Call 911 immediately for severe reactions (anaphylaxis).</li>
+        <li><strong style="color:var(--sp-white);">Nerve Strike / Paresthesia:</strong> Sharp shooting pain or numbness during draw. Remove needle immediately, document, do not re-stick same site.</li>
+        <li><strong style="color:var(--sp-white);">Excessive Bleeding:</strong> Apply continuous direct pressure. Call 911 if bleeding does not stop within 5 minutes.</li>
+      </ul>
+    </div>
+
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <strong>Stop the Procedure</strong>
+          <p>Immediately halt any screening activity. Secure needles and sharps in biohazard container.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <strong>Assess the Participant</strong>
+          <p>Determine if the participant is conscious, breathing, and responsive. Keep them calm and seated or lying down as appropriate.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <strong>Call 911 if Needed</strong>
+          <p>If the participant is unconscious, cannot breathe, has severe chest pain, or any other life-threatening condition — call 911 immediately.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <strong>Notify Your Supervisor</strong>
+          <p>Contact your US Wellness event supervisor immediately — before or after calling 911 depending on urgency.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <strong>Document Everything</strong>
+          <p>Record the time, participant's symptoms, actions taken, and any EMS response. Complete an incident report before leaving the event.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">6</div>
+        <div class="step-body">
+          <strong>Do Not Leave the Participant Alone</strong>
+          <p>Stay with the participant until EMS arrives or they are stable and have declined further assistance in writing.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="info-block" style="margin-top: 24px;">
+      <h4>📞 Emergency Contacts</h4>
+      <ul>
+        <li><strong style="color:var(--sp-white);">Emergency Services:</strong> 911</li>
+        <li><strong style="color:var(--sp-white);">US Wellness Supervisor:</strong> Contact provided in your event briefing packet</li>
+        <li><strong style="color:var(--sp-white);">Poison Control (if applicable):</strong> 1-800-222-1222</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer class="training-footer">
+    <div>
+      <p style="color:var(--sp-white); font-weight:700; font-size:0.82rem; margin-bottom:2px;">Superpower Health Screener Training Manual</p>
+      <p>Prepared by US Wellness · For internal use only · Not for distribution</p>
+    </div>
+    <img class="logo-small" src="https://uswtrain.github.io/GenRapid/US_Wellness_Logo.png" alt="US Wellness" onerror="this.style.display='none'">
+  </footer>
+</main>
+</div><!-- /#manual-page -->
+
+<script>
+  function openManual(sectionId) {
+    document.getElementById('index-page').style.display = 'none';
+    document.getElementById('manual-page').style.display = 'block';
+    if (sectionId) {
+      setTimeout(function() {
+        var el = document.getElementById(sectionId);
+        if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      }, 60);
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }
+
+  function showIndex() {
+    document.getElementById('manual-page').style.display = 'none';
+    document.getElementById('index-page').style.display = 'flex';
+    window.scrollTo(0, 0);
+  }
+
+  function handleNavClick(e, id) {
+    e.preventDefault();
+    var el = document.getElementById(id);
+    if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  }
+
+  // Active nav highlight on scroll
+  var navLinks = document.querySelectorAll('.nav-link');
+  var sectionEls = document.querySelectorAll('section[id]');
+
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        navLinks.forEach(function(l) { l.classList.remove('active'); });
+        var a = document.querySelector('.nav-link[href="#' + entry.target.id + '"]');
+        if (a) { a.classList.add('active'); }
+      }
+    });
+  }, { rootMargin: '-20% 0px -60% 0px' });
+
+  sectionEls.forEach(function(s) { obs.observe(s); });
+</script>
+</body>
+</html>
